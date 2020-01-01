@@ -1,0 +1,31 @@
+FROM ubuntu:latest
+
+RUN apt-get update -y \
+    && apt-get -y install \
+        automake \
+        bash \
+        curl \
+        checkinstall \
+        elvis-tiny \
+        gcc \
+        sudo \
+    && rm -rf /var/lib/apt/lists/*
+
+ARG UBUNTU_UID=1000
+ARG UBUNTU_GID=1000
+
+RUN groupadd -g ${UBUNTU_GID} ubuntu \
+    && useradd -ms /bin/bash -u ${UBUNTU_UID} -g ubuntu ubuntu \
+    && usermod -aG sudo ubuntu \
+    && [ -d /etc/sudoers.d ] || mkdir -p /etc/sudoers.d/ \
+    && echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/ubuntu
+
+RUN mkdir -p /build \
+    && chown ubuntu:ubuntu /build
+
+USER ubuntu
+
+# Just use a volume-map and do this at run time.
+#COPY --chown=ubuntu env build.sh /build/
+#VOLUME ["/build"]
+#CMD cd /build/ && ./build.sh
