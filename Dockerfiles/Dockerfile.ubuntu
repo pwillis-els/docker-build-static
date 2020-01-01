@@ -8,8 +8,11 @@ RUN apt-get update -y \
         checkinstall \
         elvis-tiny \
         gcc \
-        sudo \
-    && rm -rf /var/lib/apt/lists/*
+        sudo
+
+# Don't clear out the packages list, so we don't have to do 'update' every time
+# another script wants to install some extra build dependencies.
+#    && rm -rf /var/lib/apt/lists/*
 
 ARG UBUNTU_UID=1000
 ARG UBUNTU_GID=1000

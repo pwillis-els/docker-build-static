@@ -18,7 +18,7 @@ OS="$1"; shift
 
 set -x
 
-docker build -t "$OS-build:latest" -f "./Dockerfiles/Dockerfile.$OS" .
+docker build -t "$OS-build:latest" -f "./Dockerfiles/Dockerfile.$OS" ./Dockerfiles/
 
 for sw in "$@" ; do
     docker run \

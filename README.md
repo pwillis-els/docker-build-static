@@ -2,6 +2,11 @@
 
 This repository makes it easy to compile software inside a Docker container.
 
+## Usage
+```bash
+$ ./docker-build.sh ubuntu jattach-static
+```
+
 ## Files
 
 ### Dockerfiles/
