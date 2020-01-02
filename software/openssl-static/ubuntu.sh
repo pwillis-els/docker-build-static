@@ -33,4 +33,4 @@ tar -czf "$ROOTWD/$NAME-$VERSION-$HOSTTYPE-static.txz" -C apps openssl
 
 # Clean up
 cd "$ROOTWD"
-#rm -rf "$SRCWD"
+rm -rf "$SRCWD"

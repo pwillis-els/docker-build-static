@@ -9,8 +9,8 @@ set -e -o pipefail -x -u
 
 # Install build-time dependencies
 #sudo apt-get update -y
-#sudo apt-get install -y libc-ares-dev libwolfssl-dev
-sudo apt-get install -y libc-ares-dev libssl-dev
+sudo apt-get install -y libc-ares-dev libwolfssl-dev
+#sudo apt-get install -y libc-ares-dev libssl-dev
 #sudo apt-get install -y libc-ares-dev libgnutls28-dev
 
 echo "Downloading $NAME version $VERSION ..."
@@ -30,12 +30,12 @@ cd tmp
 
 # Strip it down to the essentials.
 # Disable pthreads as it's causing linker problems
-#"$SRCWD"/configure --prefix=/usr --disable-shared --enable-static --disable-pthreads --disable-threaded-resolver -disable-ldap --disable-sspi --without-librtmp --disable-ftp --disable-dict --disable-telnet --disable-tftp --disable-rtsp --disable-pop3 --disable-imap --disable-smtp --disable-gopher --disable-smb --without-libidn --enable-ares \
+"$SRCWD"/configure --prefix=/usr --disable-shared --enable-static --disable-pthreads --disable-threaded-resolver -disable-ldap --disable-sspi --without-librtmp --disable-ftp --disable-dict --disable-telnet --disable-tftp --disable-rtsp --disable-pop3 --disable-imap --disable-smtp --disable-gopher --disable-smb --without-libidn --enable-ares \
+	--with-wolfssl --with-schannel --with-secure-transport
 #	--with-ssl --with-schannel --with-secure-transport
-#	--with-wolfssl --with-schannel --with-secure-transport
 
 #"$SRCWD"/configure --prefix=/usr --with-ca-fallback --without-ssl --with-gnutls
-"$SRCWD"/configure --prefix=/usr --with-ca-fallback --with-ssl --without-gnutls --without-wolfssl
+#"$SRCWD"/configure --prefix=/usr --with-ca-fallback --with-ssl --without-gnutls --without-wolfssl
 
 
 # Fix a bad build process
