@@ -53,4 +53,4 @@ tar -czf "$ROOTWD/$NAME-$VERSION-$HOSTTYPE-static.txz" -C src curl
 
 # Clean up
 cd "$ROOTWD"
-#rm -rf tmp "$SRCWD"
+rm -rf tmp "$SRCWD"

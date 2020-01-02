@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.11
 
 RUN apk add \
         bash \
@@ -15,9 +15,9 @@ RUN apk add \
 ARG ALPINE_UID=1000
 ARG ALPINE_GID=1000
 
-RUN groupadd -g ${ALPINE_GID} alpine \
-    && useradd -ms /bin/bash -u ${ALPINE_UID} -g alpine alpine \
-    && usermod -aG sudo alpine \
+RUN addgroup -g ${ALPINE_GID} alpine \
+    && adduser -D -h /home/alpine -s /bin/bash -u ${ALPINE_UID} -G alpine alpine \
+    && adduser alpine wheel \
     && [ -d /etc/sudoers.d ] || mkdir -p /etc/sudoers.d/ \
     && echo "alpine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/alpine
 
