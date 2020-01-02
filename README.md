@@ -1,6 +1,6 @@
 # About
 
-This repository makes it easy to compile software inside a Docker container.
+This repository makes it easy to compile software inside a Docker container. Most of the software builds are designed to build a statically-compiled binary.
 
 ## Usage
 ```bash

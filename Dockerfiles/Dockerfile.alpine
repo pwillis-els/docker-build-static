@@ -1,0 +1,32 @@
+FROM alpine:latest
+
+RUN apk add \
+        bash \
+        curl \
+        file \
+        gcc \
+        gnupg \
+        less \
+        make \
+        musl-dev \
+        sudo \
+        vim
+
+ARG ALPINE_UID=1000
+ARG ALPINE_GID=1000
+
+RUN groupadd -g ${ALPINE_GID} alpine \
+    && useradd -ms /bin/bash -u ${ALPINE_UID} -g alpine alpine \
+    && usermod -aG sudo alpine \
+    && [ -d /etc/sudoers.d ] || mkdir -p /etc/sudoers.d/ \
+    && echo "alpine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/alpine
+
+RUN mkdir -p /build \
+    && chown alpine:alpine /build
+
+USER alpine
+
+# Just use a volume-map and do this at run time.
+#COPY --chown=alpine env build.sh /build/
+#VOLUME ["/build"]
+#CMD cd /build/ && ./build.sh

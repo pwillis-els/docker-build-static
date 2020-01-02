@@ -5,6 +5,7 @@ if [ $# -lt 2 ] ; then
     echo "Usage: $0 OS SOFTWARE [..]"
     echo ""
     echo "Build \$SOFTWARE (from ./software/*/) using Dockerfiles/Dockerfile.\$OS"
+    echo "Runs $OS.sh inside /build in the $OS container."
     echo ""
     echo "OSes:"
     for f in ./Dockerfiles/Dockerfile.* ; do B=`basename $f`; echo "  $B" | sed -e 's/Dockerfile\.//' ; done
@@ -21,10 +22,6 @@ set -x
 docker build -t "$OS-build:latest" -f "./Dockerfiles/Dockerfile.$OS" ./Dockerfiles/
 
 for sw in "$@" ; do
-    docker run \
-        --rm \
-        -u `id -u` \
-        -v "`pwd`/software/$sw":/build \
-        "$OS-build:latest" \
-        /bin/bash -c "cd /build && ./build.sh"
+    ./docker-run.sh "$OS" "$sw" \
+        /bin/bash -c "cd /build && ./$OS.sh"
 done
