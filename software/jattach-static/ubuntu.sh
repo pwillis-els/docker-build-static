@@ -16,6 +16,8 @@ VERSION=$(grep '^Version:' jattach.spec | cut -d : -f 2 | xargs)
 
 make CFLAGS="-O2 -fPIC -static"
 
+strip build/jattach
+
 tar -czf "$ROOTWD/$NAME-$VERSION-$HOSTTYPE-static.txz" -C build jattach
 
 cd "$ROOTWD"

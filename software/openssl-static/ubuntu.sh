@@ -27,6 +27,8 @@ cd "$SRCWD"
 
 make CFLAG="-O2 -fPIC -g -static"
 
+strip apps/openssl
+
 # Pack up the static binary
 [ -n "$HOSTTYPE" ] || HOSTTYPE="$(uname -m)"
 tar -czf "$ROOTWD/$NAME-$VERSION-$HOSTTYPE-static.txz" -C apps openssl
