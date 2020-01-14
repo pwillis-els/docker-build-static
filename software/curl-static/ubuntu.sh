@@ -2,7 +2,7 @@
 set -e -o pipefail -x -u
 
 # 
-# Statically compile GDB
+# Statically compile curl
 #
 
 . ./env
