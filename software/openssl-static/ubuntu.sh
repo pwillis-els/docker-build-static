@@ -1,10 +1,6 @@
 #!/bin/bash
 set -e -o pipefail -x -u
 
-# 
-# Statically compile OpenSSL
-#
-
 . ./env
 
 # Install build-time dependencies
@@ -13,8 +9,10 @@ set -e -o pipefail -x -u
 
 echo "Downloading $NAME version $VERSION ..."
 
+[ -n "$HOSTTYPE" ] || HOSTTYPE="$(uname -m)"
 ROOTWD="`pwd`"
 SRCWD="$ROOTWD/$NAME-$VERSION"
+INSTALLDIR="$ROOTWD/$NAME-$VERSION-$HOSTTYPE-$BUILDNAME-$BUILDVER/bin"
 
 [ -r "$FILENAME" ] || curl -o "$FILENAME" "$URL"
 [ -d "$SRCWD" ] || tar -xf "$FILENAME"
@@ -30,8 +28,8 @@ make CFLAG="-O2 -fPIC -g -static"
 strip apps/openssl
 
 # Pack up the static binary
-[ -n "$HOSTTYPE" ] || HOSTTYPE="$(uname -m)"
-tar -czf "$ROOTWD/$NAME-$VERSION-$HOSTTYPE-$BUILDNAME-$BUILDVER.txz" -C apps openssl
+mkdir -p "$INSTALLDIR"
+cp -f apps/openssl "$INSTALLDIR"/
 
 # Clean up
 cd "$ROOTWD"

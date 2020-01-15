@@ -17,8 +17,10 @@ GPG_KEY_PATH="/tmp/curl-gpg.pub"
 gpg --import --always-trust ${GPG_KEY_PATH}
 gpg --verify "$FILENAME".asc "$FILENAME"
 
+[ -n "$HOSTTYPE" ] || HOSTTYPE="$(uname -m)"
 ROOTWD="$(pwd)"
 SRCWD="$ROOTWD/$NAME-$VERSION"
+INSTALLDIR="$ROOTWD/$NAME-$VERSION-$HOSTTYPE-$BUILDNAME-$BUILDVER/bin"
 
 [ -d "$FILENAME" ] || tar -xf $FILENAME
 [ -d "tmp" ] && rm -rf tmp
@@ -32,8 +34,8 @@ make curl_LDFLAGS=-all-static
 strip src/curl
 
 # Pack up the static binary
-[ -n "$HOSTTYPE" ] || HOSTTYPE="$(uname -m)"
-tar -czf "$ROOTWD/$NAME-$VERSION-$HOSTTYPE-$BUILDNAME-$BUILDVER.txz" -C src curl
+mkdir -p "$INSTALLDIR"
+cp -f src/curl "$INSTALLDIR"/
 
 # Clean up
 cd "$ROOTWD"
