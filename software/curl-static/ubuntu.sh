@@ -38,7 +38,7 @@ cd tmp
 #"$SRCWD"/configure --prefix=/usr --with-ca-fallback --with-ssl --without-gnutls --without-wolfssl
 
 
-# Fix a bad build process
+# Fix a bad build process for wolfssl
 sed -i -e 's?<wolfssl/options\.h>?"../../projects/wolfssl_options.h"?g' $SRCWD/lib/vtls/wolfssl.c
 sed -i -e 's?^.*define.*WOLFSSL_ALLOW_SSLV3??g' $SRCWD/projects/wolfssl_options.h
 
