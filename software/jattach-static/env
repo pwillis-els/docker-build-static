@@ -1,2 +1,4 @@
 NAME=jattach
+BUILDNAME=static
+BUILDVER=1
 URL=https://github.com/apangin/jattach.git

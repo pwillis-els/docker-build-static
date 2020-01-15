@@ -1,4 +1,6 @@
 NAME=curl
 VERSION=7.67.0
+BUILDNAME=static
+BUILDVER=1
 FILENAME=$NAME-$VERSION.tar.xz
 URL=https://curl.haxx.se/download/$NAME-$VERSION.tar.xz

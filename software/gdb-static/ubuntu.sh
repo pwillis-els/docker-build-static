@@ -38,7 +38,7 @@ strip gdb/gdb
 
 # Pack up the static binary
 [ -n "$HOSTTYPE" ] || HOSTTYPE="$(uname -m)"
-tar -czf "$ROOTWD/$NAME-$VERSION-$HOSTTYPE-static.txz" -C gdb gdb gcore gdbserver/gdbserver gdbserver/gdbreplay
+tar -czf "$ROOTWD/$NAME-$VERSION-$HOSTTYPE-$BUILDNAME-$BUILDVER.txz" -C gdb gdb gcore gdbserver/gdbserver gdbserver/gdbreplay
 
 # Clean up
 cd "$ROOTWD"

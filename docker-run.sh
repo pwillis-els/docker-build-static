@@ -1,17 +1,21 @@
 #!/bin/bash
 set -e -o pipefail
 
+_list_sw () {
+    for f in Dockerfiles/Dockerfile.* ; do 
+        OS=`basename "$f" | sed -e 's/^.*\.//'`
+        echo -en "OS $OS:\n\tSOFTWARE: "
+        for s in software/*/$OS.sh ; do echo $(basename $(dirname $s)) ; done | xargs
+    done
+}
+
 if [ $# -lt 2 ] ; then
     echo "Usage: $0 OS SOFTWARE [ARGS ..]"
     echo ""
-    echo "Run \$OS-build:latest Docker container, volume-mapping ./software/\$SOFTWARE/ to /build."
-    echo "Passes any ARGS on to the container to run."
+    echo "Runs a container OS-build:latest , volume-mapping in ./software/SOFTWARE, and passes in"
+    echo "any extra ARGS passed."
     echo ""
-    echo "OSes:"
-    for f in ./Dockerfiles/Dockerfile.* ; do B=`basename $f`; echo "  $B" | sed -e 's/Dockerfile\.//' ; done
-    echo ""
-    echo "Software:"
-    echo -n "  " ; ls ./software/
+    _list_sw
     exit 1
 fi
 

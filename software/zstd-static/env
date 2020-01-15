@@ -1,4 +1,6 @@
 NAME=zstd
 VERSION=1.4.4
+BUILDNAME=static
+BUILDVER=1
 FILENAME=$NAME-$VERSION.tar.gz
 URL=https://github.com/facebook/zstd/releases/download/v$VERSION/$NAME-$VERSION.tar.gz

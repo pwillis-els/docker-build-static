@@ -18,7 +18,7 @@ make CFLAGS="-O2 -fPIC -static"
 
 strip build/jattach
 
-tar -czf "$ROOTWD/$NAME-$VERSION-$HOSTTYPE-static.txz" -C build jattach
+tar -czf "$ROOTWD/$NAME-$VERSION-$HOSTTYPE-$BUILDNAME-$BUILDVER.txz" -C build jattach
 
 cd "$ROOTWD"
 rm -rf "$NAME"

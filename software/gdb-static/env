@@ -1,4 +1,6 @@
 NAME=gdb
 VERSION=8.3.1
+BUILDNAME=static
+BUILDVER=1
 URL=https://ftp.gnu.org/gnu/gdb/gdb-$VERSION.tar.xz
 FILENAME=$NAME-$VERSION.tar.xz

@@ -27,7 +27,7 @@ strip programs/zstd
 
 # Pack up the static binary
 [ -n "$HOSTTYPE" ] || HOSTTYPE="$(uname -m)"
-tar -czf "$ROOTWD/$NAME-$VERSION-$HOSTTYPE-static.txz" -C programs zstd
+tar -czf "$ROOTWD/$NAME-$VERSION-$HOSTTYPE-$BUILDNAME-$BUILDVER.txz" -C programs zstd
 
 # Clean up
 cd "$ROOTWD"

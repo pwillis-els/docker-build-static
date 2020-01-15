@@ -31,7 +31,7 @@ strip apps/openssl
 
 # Pack up the static binary
 [ -n "$HOSTTYPE" ] || HOSTTYPE="$(uname -m)"
-tar -czf "$ROOTWD/$NAME-$VERSION-$HOSTTYPE-static.txz" -C apps openssl
+tar -czf "$ROOTWD/$NAME-$VERSION-$HOSTTYPE-$BUILDNAME-$BUILDVER.txz" -C apps openssl
 
 # Clean up
 cd "$ROOTWD"
