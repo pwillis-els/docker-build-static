@@ -26,7 +26,3 @@ RUN mkdir -p /build \
 
 USER alpine
 
-# Just use a volume-map and do this at run time.
-#COPY --chown=alpine env build.sh /build/
-#VOLUME ["/build"]
-#CMD cd /build/ && ./build.sh

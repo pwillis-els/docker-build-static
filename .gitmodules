@@ -1,0 +1,3 @@
+[submodule "zscaler-fixes"]
+	path = zscaler-fixes
+	url = git@github.com:elsevierPTG/zscaler-fixes.git

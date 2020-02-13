@@ -28,9 +28,11 @@ RUN groupadd -g ${UBUNTU_GID} ubuntu \
 RUN mkdir -p /build \
     && chown ubuntu:ubuntu /build
 
+# Fix building and running these containers under ZScaler
+COPY zscaler-fixes /zscaler-fixes
+RUN [ "/bin/bash", "-c", "/zscaler-fixes/env/linux/main.sh" ]
+ENV AWS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+
 USER ubuntu
 
-# Just use a volume-map and do this at run time.
-#COPY --chown=ubuntu env build.sh /build/
-#VOLUME ["/build"]
-#CMD cd /build/ && ./build.sh

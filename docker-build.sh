@@ -26,7 +26,7 @@ fi
 
 set -x
 
-docker build -t "$OS-build:latest" -f "./Dockerfiles/Dockerfile.$OS" ./Dockerfiles/
+docker build -t "$OS-build:latest" -f "./Dockerfiles/Dockerfile.$OS" .
 
 for sw in "$@" ; do
     if [ -x "./software/$sw/$OS.sh" ] ; then
