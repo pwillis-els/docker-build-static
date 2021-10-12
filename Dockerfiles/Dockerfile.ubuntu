@@ -16,23 +16,13 @@ RUN apt-get update -y \
 # another script wants to install some extra build dependencies.
 #    && rm -rf /var/lib/apt/lists/*
 
-ARG UBUNTU_UID=1000
-ARG UBUNTU_GID=1000
+RUN mkdir -p /build
 
-RUN groupadd -g ${UBUNTU_GID} ubuntu \
-    && useradd -ms /bin/bash -u ${UBUNTU_UID} -g ubuntu ubuntu \
-    && usermod -aG sudo ubuntu \
-    && [ -d /etc/sudoers.d ] || mkdir -p /etc/sudoers.d/ \
-    && echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/ubuntu
+ARG BUILDER_UID=1000
+ARG BUILDER_GID=1000
+ENV BUILDER_UID=$BUILDER_UID
+ENV BUILDER_GID=$BUILDER_GID
 
-RUN mkdir -p /build \
-    && chown ubuntu:ubuntu /build
+COPY Dockerfiles/fix-id.sh /usr/local/sbin/fix-id.sh
 
-# Fix building and running these containers under ZScaler
-COPY zscaler-fixes /zscaler-fixes
-RUN [ "/bin/bash", "-c", "/zscaler-fixes/env/linux/main.sh" ]
-ENV AWS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
-ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
-
-USER ubuntu
-
+ENTRYPOINT ["/usr/local/sbin/fix-id.sh"]

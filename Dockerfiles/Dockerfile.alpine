@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.13
 
 RUN apk add \
         bash \
@@ -9,20 +9,17 @@ RUN apk add \
         less \
         make \
         musl-dev \
+        shadow \
         sudo \
         vim
 
-ARG ALPINE_UID=1000
-ARG ALPINE_GID=1000
+RUN mkdir -p /build
 
-RUN addgroup -g ${ALPINE_GID} alpine \
-    && adduser -D -h /home/alpine -s /bin/bash -u ${ALPINE_UID} -G alpine alpine \
-    && adduser alpine wheel \
-    && [ -d /etc/sudoers.d ] || mkdir -p /etc/sudoers.d/ \
-    && echo "alpine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/alpine
+ARG BUILDER_UID=1000
+ARG BUILDER_GID=1000
+ENV BUILDER_UID=$BUILDER_UID
+ENV BUILDER_GID=$BUILDER_GID
 
-RUN mkdir -p /build \
-    && chown alpine:alpine /build
+COPY Dockerfiles/fix-id.sh /usr/local/sbin/fix-id.sh
 
-USER alpine
-
+ENTRYPOINT ["/usr/local/sbin/fix-id.sh"]

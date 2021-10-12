@@ -3,7 +3,7 @@ set -e -o pipefail
 
 _list_sw () {
     for f in Dockerfiles/Dockerfile.* ; do 
-        OS=`basename "$f" | sed -e 's/^.*\.//'`
+        OS="$(basename "$f" | sed -e 's/^.*\.//')"
         echo -en "OS $OS:\n\tSOFTWARE: "
         for s in software/*/$OS.sh ; do echo $(basename $(dirname $s)) ; done | xargs
     done
@@ -26,8 +26,8 @@ set -x
 
 docker run \
     --rm -it \
-    -u `id -u` \
-    -v "`pwd`/software/$sw":/build \
+    -v "$(pwd)/software/$sw":/build \
+    -e BUILDER_UID=$(id -u) -e BUILDER_GID=$(id -g) \
     -w /build \
     "$OS-build:latest" \
     "$@"
