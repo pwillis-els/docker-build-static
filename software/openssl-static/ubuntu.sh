@@ -14,7 +14,7 @@ ROOTWD="`pwd`"
 SRCWD="$ROOTWD/$NAME-$VERSION"
 INSTALLDIR="$ROOTWD/$NAME-$VERSION-$HOSTTYPE-$BUILDNAME-$BUILDVER/bin"
 
-[ -r "$FILENAME" ] || curl -o "$FILENAME" "$URL"
+[ -r "$FILENAME" ] || curl -L -o "$FILENAME" "$URL"
 [ -d "$SRCWD" ] || tar -xf "$FILENAME"
 
 cd "$SRCWD"

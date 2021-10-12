@@ -10,9 +10,9 @@ GPG_KEY_PATH="/tmp/curl-gpg.pub"
 
 #trap 'RC="\$?"; echo "***FAILED! RC=\${RC}"; exit \${RC}' EXIT
 
-[ -e "$GPG_KEY_PATH" ] || curl -o $GPG_KEY_PATH "${GPG_KEY_URL}"
-[ -e "$FILENAME".asc ] || curl -o "$FILENAME".asc "$URL".asc
-[ -e "$FILENAME" ] || curl -o $FILENAME $URL
+[ -e "$GPG_KEY_PATH" ] || curl -L -o $GPG_KEY_PATH "${GPG_KEY_URL}"
+[ -e "$FILENAME".asc ] || curl -L -o "$FILENAME".asc "$URL".asc
+[ -e "$FILENAME" ] || curl -L -o $FILENAME $URL
 
 gpg --import --always-trust ${GPG_KEY_PATH}
 gpg --verify "$FILENAME".asc "$FILENAME"

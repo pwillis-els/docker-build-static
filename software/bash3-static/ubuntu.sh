@@ -16,7 +16,7 @@ echo "Downloading $NAME version $VERSION ..."
 ROOTWD="`pwd`"
 SRCWD="$ROOTWD/$NAME-$VERSION"
 
-[ -r "$FILENAME" ] || curl -o "$FILENAME" "$URL"
+[ -r "$FILENAME" ] || curl -L -o "$FILENAME" "$URL"
 [ -d "$SRCWD" ] || tar -xf "$FILENAME"
 
 [ -d "tmp" ] && rm -r tmp
